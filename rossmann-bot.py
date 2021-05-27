@@ -6,7 +6,7 @@ import pandas as pd
 from flask import Flask, request, Response
 
 # constants
-TOKEN = '1637566081:AAHQPsb8EW5pDmieWSARmhWcH92_AkBzsCg'
+TOKEN = '1822625794:AAETTm8bQ5B1mFs7rGg6Q50RqIKcPo2Utow'
 
 ## Info about the Bot
 #https://api.telegram.org/bot944200092:AAHrHbZ1Q_LaJkVG6SZs6Em3qf6GdL5r-II/getMe
