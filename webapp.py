@@ -42,7 +42,7 @@ def main():
     #asking for MudFlow
     MudFlow = st.number_input('Mud Flow Out (percentual)', value=0)
     
-    if MudFlow > 0:
+    if BlockPosition > 0:
         
         #defining wbit
         df1_var1 = DepthBit*0.052
