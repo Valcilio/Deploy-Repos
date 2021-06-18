@@ -31,8 +31,8 @@ def prediction(Wbit, Hookload, BlockPosition, DepthBit, MudFlow, RateOfPenetrati
 
     # dbtm.ft
     mms = pickle.load(open('scalers/dbtm_ft_scaler.pkl', 'rb'))
-    DephtBit = mms.transform([[DephtBit]])
-    DephtBit = DephtBit[0]
+    DepthBit = mms.transform([[DepthBit]])
+    DepthBit = DepthBit[0]
 
     # mfop.%
     mms = pickle.load(open('scalers/mfop_%_scaler.pkl', 'rb'))
