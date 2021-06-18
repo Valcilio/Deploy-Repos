@@ -1,5 +1,6 @@
 import pickle
 import streamlit as st
+import pandas as pd
 import numpy as np
 import math
 from sklearn.preprocessing     import RobustScaler, MinMaxScaler
@@ -9,55 +10,64 @@ from sklearn.ensemble import RandomForestRegressor
 model = pickle.load(open('model.pkl', 'rb'))
 
 # defining the prediction function
-def prediction(Wbit, Hookload, BlockPosition, DepthBit, MudFlow, RateOfPenetration, DownholeWbit,
+def predict(Wbit, Hookload, BlockPosition, DepthBit, MudFlow, RateOfPenetration, DownholeWbit,
                 StandpipePressure, DifHolBit, WbitDens):
-    
+                
     # preparing the dataset
 
     #bpos.ft
     rs = pickle.load(open('scalers/bpos_ft_scaler.pkl', 'rb'))
-    BlockPosition = rs.transform([[BlockPosition]])
+    BP = (rs.transform([[BlockPosition]]))[0]
+    BlockPosition = BP[0]
 
     # woba.klbf
     mms = pickle.load(open('scalers/woba_klbf_scaler.pkl', 'rb'))
-    Wbit = mms.transform([[Wbit]])
+    Wb = (mms.transform([[Wbit]]))[0]
+    Wbit = Wb[0]
 
     # hkla.klbf
     mms = pickle.load(open('scalers/hkla_klbf_scaler.pkl', 'rb'))
-    Hookload = mms.transform([[Hookload]])
+    Hk = (mms.transform([[Hookload]]))[0]
+    Hookload = Hk[0]
 
     # dbtm.ft
     mms = pickle.load(open('scalers/dbtm_ft_scaler.pkl', 'rb'))
-    DepthBit = mms.transform([[DepthBit]])
+    DB = (mms.transform([[DepthBit]]))[0]
+    DepthBit = DB[0]
 
     # mfop.%
     mms = pickle.load(open('scalers/mfop_%_scaler.pkl', 'rb'))
-    MudFlow = mms.transform([[MudFlow]])
+    MF = (mms.transform([[MudFlow]]))[0]
+    MudFlow = MF[0]
 
     # ropa.ft/h
     mms = pickle.load(open('scalers/ropa_ft_h_scaler.pkl', 'rb'))
-    RateOfPenetration = mms.transform([[RateOfPenetration]])
+    RP = (mms.transform([[RateOfPenetration]]))[0]
+    RateOfPenetration = RP[0]
 
     # dhwob.klbf
     mms = pickle.load(open('scalers/dhwob_klbf_scaler.pkl', 'rb'))
-    DownholeWbit = mms.transform([[DownholeWbit]])
-    DownholeWbit = DownholeWbit[0]
+    DW = (mms.transform([[DownholeWbit]]))[0]
+    DownholeWbit = DW[0]
 
     # sppa.psi
     mms = pickle.load(open('scalers/sppa_psi_scaler.pkl', 'rb'))
-    StandpipePressure = mms.transform([[StandpipePressure]])
+    SP = (mms.transform([[StandpipePressure]]))[0]
+    StandpipePressure = SP[0]
 
     # dif_hol_bit
     mms = pickle.load(open('scalers/dif_hol_bit_scaler.pkl', 'rb'))
-    DifHolBit = mms.transform([[DifHolBit]])
+    DB = (mms.transform([[DifHolBit]]))[0]
+    DifHolBit = DB[0]
 
     # weig_bit_dens
     mms = pickle.load(open('scalers/weig_bit_dens_scaler.pkl', 'rb'))
-    WbitDens = mms.transform([[WbitDens]])
+    WD = (mms.transform([[WbitDens]]))[0]
+    WbitDens = WD[0]
 
     # making the prediction
-    yhat = model.predict(Wbit, Hookload, BlockPosition, DepthBit, MudFlow, RateOfPenetration, DownholeWbit,
-                StandpipePressure, DifHolBit, WbitDens)
+    yhat = model.predict([[Wbit, Hookload, BlockPosition, DepthBit, MudFlow, RateOfPenetration, DownholeWbit,
+                StandpipePressure, DifHolBit, WbitDens]])
     
     # giving the answer
     prediction = (yhat)
@@ -111,7 +121,7 @@ def main():
     if st.button('Predict'):
         
         #making the prediction
-        result = prediction(Wbit, Hookload, BlockPosition, DepthBit, MudFlow, RateOfPenetration, DownholeWbit,
+        result = predict(Wbit, Hookload, BlockPosition, DepthBit, MudFlow, RateOfPenetration, DownholeWbit,
                 StandpipePressure, DifHolBit, WbitDens)
         
         # converting and showing result
