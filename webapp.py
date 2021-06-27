@@ -171,7 +171,7 @@ def main():
             DayMon, DayMonSin, DayMonCos, DiffYe)
         
         # informando os resultados
-        st.success('A nota do seu show indicado será {:.0f}'.format(result[0]))
+        st.success('A nota do seu show indicado será {:.0f}.'.format(result[0]))
         
 if __name__ == '__main__':
     main()
