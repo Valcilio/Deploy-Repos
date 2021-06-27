@@ -12,14 +12,14 @@ model = pickle.load(open('model.pkl', 'rb'))
 # defining the prediction function
 def predict(ReleaseYear, CastNum, DurMin, DurHour, WeekYe, WeekYeSin, WeekYeCos, MonYe, MonYeSin, 
             MonYeCos, DayWeek, DayWeekSin, DayWeekCos, AddedYe, CateNum, CountriesNum, 
-            DayMon, DayMonSin, DayMonCos):
+            DayMon, DayMonSin, DayMonCos, DiffYe):
     
     # -------------------------------------MAKING PREDICTION----------------------------------
     
     # making the prediction
     yhat = model.predict([[ReleaseYear, CastNum, DurMin, DurHour, WeekYe, WeekYeSin, WeekYeCos, MonYe, MonYeSin, 
             MonYeCos, DayWeek, DayWeekSin, DayWeekCos, AddedYe, CateNum, CountriesNum, 
-            DayMon, DayMonSin, DayMonCos]])
+            DayMon, DayMonSin, DayMonCos, DiffYe]])
     
     # giving the answer
     prediction = (yhat)
@@ -46,16 +46,22 @@ def main():
         DurHour = 0
     
     # WeelYe
-    WeekYe = st.number_input('Digite qual o número da semana no ano:', value=0)
+    WeekYe = st.number_input('Digite qual o número da semana no ano que o show foi adicionado  a Netflix:', value=0)
     
     # MonYe
-    MonYe = st.number_input('Digite o mês do ano em numeral (1 = Janeiro e assim por diante):', value=0)
+    MonYe = st.number_input('Digite o mês do ano em numeral que o show foi adicionado a Netflix (1 = Janeiro e assim por diante):', value=0)
     
     # DayWeek
-    DayWeek = st.number_input('Digite o número do dia da semana (0 = Segunda, ..., 6 = Domingo):', value=0)
+    DayWeek = st.number_input('Digite o número do dia da semana que o show foi adicionado a Netflix (0 = Segunda, ..., 6 = Domingo):', value=0)
     
     # AddedYe
     AddedYe = st.number_input('Digite o ano em que o show foi adicionado a Netflix:', value=0)
+    
+    # DiffYe
+    if AddedYe != 0:
+    	DiffYe = ReleaseYear - AddedYe
+    else:
+    	DiffYe = 0
     
     # CatNum
     CateNum = st.number_input('Digite o número de categorias:', value=0)
@@ -131,6 +137,11 @@ def main():
         mms = pickle.load(open('scalers/num_of_categories_scaler.pkl', 'rb'))
         CAN = (mms.transform([[CateNum]]))[0]
         CateNum = CAN[0]
+        
+        # diff_bet_years
+        mms = pickle.load(open('scalers/diff_bet_years_scaler.pkl', 'rb'))
+        DY = (mms.transform([[DiffYe]]))[0]
+        DiffYe = DY[0]
 
         # -------------------------------------TRANSFORMATION----------------------------------
 
@@ -157,7 +168,7 @@ def main():
         # fazendo a predição
         result = predict(ReleaseYear, CastNum, DurMin, DurHour, WeekYe, WeekYeSin, WeekYeCos, MonYe, MonYeSin, 
             MonYeCos, DayWeek, DayWeekSin, DayWeekCos, AddedYe, CateNum, CountriesNum, 
-            DayMon, DayMonSin, DayMonCos)
+            DayMon, DayMonSin, DayMonCos, DiffYe)
         
         # informando os resultados
         st.success('A nota do seu show indicado será {:.0f}'.format(result[0]))
