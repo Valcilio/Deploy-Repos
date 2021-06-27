@@ -152,16 +152,16 @@ def main():
         DayWeekCos = np.cos(DayWeek*(2.*np.pi/7))
 
         # day_of_month
-        DayMonSin = np.sin(DayMon*(2.*np.pi/7))
-        DayMonCos = np.cos(DayMon*(2.*np.pi/7))
+        DayMonSin = np.sin(DayMon*(2.*np.pi/30))
+        DayMonCos = np.cos(DayMon*(2.*np.pi/30))
 
         # month_of_year
-        MonYeSin = np.sin(MonYe*(2.*np.pi/7))
-        MonYeCos = np.cos(MonYe*(2.*np.pi/7))
+        MonYeSin = np.sin(MonYe*(2.*np.pi/12))
+        MonYeCos = np.cos(MonYe*(2.*np.pi/12))
 
         # week_of_year
-        WeekYeSin = np.sin(WeekYe*(2.*np.pi/7))
-        WeekYeCos = np.cos(WeekYe*(2.*np.pi/7))
+        WeekYeSin = np.sin(WeekYe*(2.*np.pi/52))
+        WeekYeCos = np.cos(WeekYe*(2.*np.pi/52))
     
     if st.button('Prediction'):
         
