@@ -4,7 +4,7 @@ import numpy as np
 import inflection
 from sklearn.preprocessing  import RobustScaler, MinMaxScaler
 
-class InsuranceAll(object):
+class InsuranceAll:
     
     def __init__(self):
         
