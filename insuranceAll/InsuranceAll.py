@@ -53,7 +53,6 @@ class InsuranceAll(object):
         # risk_region
         df['risk_region'] = df['region_code'].apply(lambda x: 'Yes' if x in risk_regions else 'No')
 
-        return df
                       
     def data_rescale(self, df):
         
@@ -71,7 +70,11 @@ class InsuranceAll(object):
         df['more_than_40_years'] = df['more_than_40_years'].apply(lambda x: 1 if x == 'yes' else 0)
         df = pd.get_dummies(df, prefix=['vehicle_age'], columns=['vehicle_age'])
         
-        return df
+        cols_selected = ['vintage', 'annual_premium', 'region_code',
+              'vehicle_damage', 'policy_sales_channel', 'driving_license',
+             'previously_insured', 'age', 'more_than_40_years', 'risk_region_rate']
+        
+        return df[cols_selected]
 
     def get_prediction(self, model, original_data, test_data):
         
