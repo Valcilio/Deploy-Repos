@@ -7,7 +7,7 @@ from insuranceAll.InsuranceAll import InsuranceAll
 model = pickle.load(open('model.pkl','rb'))
 
 app = Flask(__name__)
-@app.route('/insurance/predict', methods=['POST'])
+@app.route('/', methods=['POST'])
 
 def insurance_all_predict():
     test_json= request.get_json()
@@ -33,4 +33,5 @@ def insurance_all_predict():
 
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
