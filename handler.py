@@ -24,9 +24,11 @@ def insurance_all_predict():
         pipeline = InsuranceAll()
         df = test_raw.copy()
         df = pipeline.feature_engineering(df)
-        df = pipeline.data_filtering(df)
         df = pipeline.data_rescale(df)
         df = pipeline.data_encoding(df)
+        df = df['vintage', 'annual_premium', 'region_code',
+              'vehicle_damage', 'policy_sales_channel', 'driving_license',
+             'previously_insured', 'age', 'more_than_40_years', 'risk_region_rate']
         df_response = pipeline.get_prediction(model, test_raw, df)
         
         return df_response
