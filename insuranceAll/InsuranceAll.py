@@ -51,7 +51,7 @@ class InsuranceAll(object):
         #---------------------------------------------------------------------------------------------------------
 
         # risk_region
-        df['risk_region'] = df['region_code'].apply(lambda x: 'Yes' if x in reg_risk else 'No')
+        df['risk_region'] = df['region_code'].apply(lambda x: 'Yes' if x in risk_regions else 'No')
 
         return df
         
