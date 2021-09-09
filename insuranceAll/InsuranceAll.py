@@ -114,9 +114,9 @@ class InsuranceAll(object):
         return df
 
     def get_prediction(self, model, original_data, test_data):
-        self.calc_threshold=lambda x: 0 if x < 0.35 else 1
+        #self.calc_threshold=lambda x: 0 if x < 0.35 else 1
         pred = model.predict_proba(test_data)
         original_data['prediction'] = pred[:,1]
-        original_data=original_data.sort_values('prediction',ascending=False)
-        original_data['prediction']= list(map(self.calc_threshold, original_data['prediction']))
+        #original_data=original_data.sort_values('prediction',ascending=False)
+        #original_data['prediction']= list(map(self.calc_threshold, original_data['prediction']))
         return original_data.to_json(orient='records', date_format='iso')   
