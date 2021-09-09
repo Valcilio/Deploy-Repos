@@ -1,5 +1,7 @@
 import pickle
 import pandas as pd
+import os
+
 from sklearn.preprocessing  import RobustScaler, MinMaxScaler
 from flask import Flask, request, Response
 from insuranceAll.InsuranceAll import InsuranceAll
@@ -8,6 +10,9 @@ model = pickle.load(open('model.pkl','rb'))
 
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
+
+def home_view():
+        return "<h1>Welcome to Flask</h1>"
 
 def insurance_all_predict():
     test_json= request.get_json()
