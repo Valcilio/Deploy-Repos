@@ -19,9 +19,11 @@ class InsuranceAll:
     
         risk_regions = [0,  1,  4,  5,  7, 19, 20, 23, 24, 26, 28, 31, 34, 37, 38, 39, 40,
            42, 43, 47, 48, 49, 51]
-
+        
+        self.df1 = df
+        
         # risk_age
-        df['risk_age'] = df['age'].apply(lambda x: 0 if x > 25 else 1)
+        self.df1 = self.df1['risk_age'] = self.df1['age'].apply(lambda x: 0 if x > 25 else 1)
 
         # more_than_40_years
         df['more_than_40_years'] = df['age'].apply(lambda x: 'yes' if x > 40 else 'no')
