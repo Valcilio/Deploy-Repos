@@ -4,7 +4,7 @@ from sklearn.preprocessing  import RobustScaler, MinMaxScaler
 from flask import Flask, request, Response
 from insuranceAll.InsuranceAll import InsuranceAll
 
-model = pickle.load(open('models/lgbm_final.pkl','rb'))
+model = pickle.load(open('model.pkl','rb'))
 
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
