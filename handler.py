@@ -9,7 +9,7 @@ from insuranceAll.InsuranceAll import InsuranceAll
 model = pickle.load(open('model.pkl','rb'))
 
 app = Flask(__name__)
-@app.route('/', methods=['POST'])
+@app.route('/insurance/predict', methods=['POST'])
 
 def home_view():
         return "<h1>Welcome to Flask</h1>"
