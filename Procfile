@@ -1,1 +1,1 @@
-web: gunicorn wsgi:handler.py
+web: python handler.py
