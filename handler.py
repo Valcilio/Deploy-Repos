@@ -23,7 +23,7 @@ def insurance_all_predict():
                
         pipeline = InsuranceAll()
         df = test_raw.copy()
-        df = pipeline.feature_engieneering(df)
+        df = pipeline.feature_engineering(df)
         df = pipeline.data_filtering(df)
         df = pipeline.data_rescale(df)
         df = pipeline.data_encoding(df)
