@@ -11,13 +11,11 @@ model = pickle.load(open('model.pkl','rb'))
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
 
-def home_view():
-        return "<h1>Welcome to Flask</h1>"
-
 def insurance_all_predict():
     test_json= request.get_json()
     
     if test_json:
+        
         if isinstance(test_json,dict):
             test_raw=pd.DataFrame(test_json,index=[0])
         else:
@@ -25,12 +23,13 @@ def insurance_all_predict():
                
         pipeline = InsuranceAll()
         df = test_raw.copy()
-        df = pipeline.data_cleaning(df)
+        df = pipeline.df_cleaning(df)
         df = pipeline.feature_engieneering(df)
-        df = pipeline.feature_filtering(df)
-        df = pipeline.data_rescaling(df)
+        df = pipeline.data_filtering(df)
+        df = pipeline.data_rescale(df)
         df = pipeline.data_encoding(df)
         df_response = pipeline.get_prediction(model, test_raw, df)
+        
         return df_response
     
     else:
