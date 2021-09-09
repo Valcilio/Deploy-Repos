@@ -4,7 +4,7 @@ import numpy as np
 import inflection
 from sklearn.preprocessing  import RobustScaler, MinMaxScaler
 
-class InsuranceAll:
+class InsuranceAll(object):
     
     def __init__(self):
         
@@ -15,15 +15,13 @@ class InsuranceAll:
         self.rrrs = pickle.load(open('scalers/risk_region_rate_scaler.pkl', 'rb'))
         self.rcs = pickle.load(open('scalers/region_code_scaler.pkl', 'rb'))
                         
-    def feature_engineering(df, self):
+    def feature_engineering(self, df):
     
         risk_regions = [0,  1,  4,  5,  7, 19, 20, 23, 24, 26, 28, 31, 34, 37, 38, 39, 40,
            42, 43, 47, 48, 49, 51]
-        
-        self.df1 = df
-        
+	
         # risk_age
-        self.df1 = self.df1['risk_age'] = self.df1['age'].apply(lambda x: 0 if x > 25 else 1)
+        df['risk_age'] = df['age'].apply(lambda x: 0 if x > 25 else 1)
 
         # more_than_40_years
         df['more_than_40_years'] = df['age'].apply(lambda x: 'yes' if x > 40 else 'no')
@@ -57,7 +55,7 @@ class InsuranceAll:
 
         return df
         
-    def data_filtering(self,df):
+    def data_filtering(self, df):
         
         df = df['vintage',
              'annual_premium',
@@ -72,7 +70,7 @@ class InsuranceAll:
         
         return df
                       
-    def data_rescale(self,df):
+    def data_rescale(self, df):
         
         df['annual_premium'] = self.aps.transform(df[['annual_premium']].values)
         df['age'] = self.age.transform(df[['age']].values)
