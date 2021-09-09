@@ -121,4 +121,4 @@ class InsuranceAll(object):
         # join prediction into original data
         original_data['prediction'] = pred
 
-        return original_data.to_json( orient='records', date_format='iso' ) 
+        return original_data.to_json( orient='records', date_format='iso' )   
