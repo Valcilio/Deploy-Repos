@@ -55,9 +55,8 @@ class InsuranceAll(object):
 
         return df
         
-    def data_filtering(self, df):
-        
-        df1 = df['vintage',
+    def data_filtering(self, df): 
+        return df['vintage',
              'annual_premium',
              'region_code',
               'vehicle_damage',
@@ -66,9 +65,7 @@ class InsuranceAll(object):
              'previously_insured',
              'age',
              'more_than_40_years',
-             'risk_region_rate'].copy()
-        
-        return df1
+             'risk_region_rate']
                       
     def data_rescale(self, df):
         
