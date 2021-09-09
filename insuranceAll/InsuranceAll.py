@@ -14,32 +14,7 @@ class InsuranceAll(object):
         self.pscs = pickle.load(open('scalers/policy_sales_channel_scaler.pkl', 'rb'))
         self.rrrs = pickle.load(open('scalers/risk_region_rate_scaler.pkl', 'rb'))
         self.rcs = pickle.load(open('scalers/region_code_scaler.pkl', 'rb'))
-        
-    def df_cleaning(df, self):
-    
-        # creating old columns variable
-        cols_old = ['id', 'Gender', 'Age', 'Driving_License', 'Region_Code',
-               'Previously_Insured', 'Vehicle_Age', 'Vehicle_Damage', 'Annual_Premium',
-               'Policy_Sales_Channel', 'Vintage', 'Response']
-
-        # creating sknakecase variable
-        snakecase = lambda x: inflection.underscore(x)
-
-        # creting snakecase columns
-        cols_new = list(map(snakecase, cols_old))
-
-        # renaming
-        df.columns = cols_new
-
-        # region_code to int64
-        df['region_code'] = int(df['region_code'])
-
-        # policy_sales_channel
-        df['policy_sales_channel'] = int(df['policy_sales_channel'])
-
-        return df
-        
-        
+                        
     def feature_engineering(df, self):
     
         risk_regions = [0,  1,  4,  5,  7, 19, 20, 23, 24, 26, 28, 31, 34, 37, 38, 39, 40,
