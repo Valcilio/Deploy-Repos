@@ -54,18 +54,6 @@ class InsuranceAll(object):
         df['risk_region'] = df['region_code'].apply(lambda x: 'Yes' if x in risk_regions else 'No')
 
         return df
-        
-    def data_filtering(self, df): 
-        return df['vintage',
-             'annual_premium',
-             'region_code',
-              'vehicle_damage',
-              'policy_sales_channel',
-             'driving_license',
-             'previously_insured',
-             'age',
-             'more_than_40_years',
-             'risk_region_rate']
                       
     def data_rescale(self, df):
         
