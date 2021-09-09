@@ -1,4 +1,3 @@
-import json
 import pickle
 import pandas as pd
 import numpy as np
@@ -33,10 +32,10 @@ class InsuranceAll(object):
         df.columns = cols_new
 
         # region_code to int64
-        df['region_code'] = df['region_code'].astype(int)
+        df['region_code'] = int(df['region_code'])
 
         # policy_sales_channel
-        df['policy_sales_channel'] = df['policy_sales_channel'].astype(int)
+        df['policy_sales_channel'] = int(df['policy_sales_channel'])
 
         return df
         
