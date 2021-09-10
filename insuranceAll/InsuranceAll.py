@@ -55,9 +55,8 @@ class InsuranceAll(object):
 
                       
     def data_rescale(self, df):
-        
-        aps = pickle.load(open('scalers/annual_premium_scaler.pkl', 'rb'))
-        df['annual_premium'] = aps.transform(df[['annual_premium']].values)
+       
+        df['annual_premium'] = self.aps.transform(df[['annual_premium']].values)
         df['age'] = self.age.transform(df[['age']].values)
         df['vintage'] = self.vs.transform(df[['vintage']].values)
         df['policy_sales_channel'] = self.pscs.transform(df[['policy_sales_channel']].values)
