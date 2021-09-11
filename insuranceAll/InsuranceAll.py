@@ -7,6 +7,13 @@ from sklearn.preprocessing  import RobustScaler, MinMaxScaler
 class InsuranceAll(object):
     
     def __init__(self):
+        
+        self.aps = pickle.load(open('scalers/annual_premium_scaler.pkl', 'rb'))
+        self.age = pickle.load(open('scalers/age_scaler.pkl', 'rb'))
+        self.vs = pickle.load(open('scalers/vintage_scaler.pkl', 'rb'))
+        self.pscs = pickle.load(open('scalers/policy_sales_channel_scaler.pkl', 'rb'))
+        self.rrrs = pickle.load(open('scalers/risk_region_rate_scaler.pkl', 'rb'))
+        self.rcs = pickle.load(open('scalers/region_code_scaler.pkl', 'rb'))
                         
     def feature_engineering(self, df):
     
@@ -45,6 +52,20 @@ class InsuranceAll(object):
 
         # risk_region
         df['risk_region'] = df['region_code'].apply(lambda x: 'Yes' if x in risk_regions else 'No')
+        
+        return df
+
+                      
+    def data_rescale(self, df):
+        
+        df['annual_premium'] = self.aps.transform(df[['annual_premium']].values)
+        df['age'] = self.age.transform(df[['age']].values)
+        df['vintage'] = self.vs.transform(df[['vintage']].values)
+        df['policy_sales_channel'] = self.pscs.transform(df[['policy_sales_channel']].values)
+        df['risk_region_rate'] = self.rrrs.transform(df[['risk_region_rate']].values)
+        df['region_code'] = self.rcs.transform(df[['region_code']].values)
+        
+        return df
     
     def data_encoding(self, df):
         
