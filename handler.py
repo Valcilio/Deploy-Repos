@@ -24,24 +24,7 @@ def insurance_all_predict():
         pipeline = InsuranceAll()
         df = test_raw.copy()
         df = pipeline.feature_engineering(df)
-        
-        # Scalers
-        home_path = 'scalers/'
-        aps = pickle.load(open(home_path + 'annual_premium_scaler.pkl', 'rb'))
-        age = pickle.load(open(home_path + 'age_scaler.pkl', 'rb'))
-        vs = pickle.load(open(home_path + 'vintage_scaler.pkl', 'rb'))
-        pscs = pickle.load(open(home_path + 'policy_sales_channel_scaler.pkl', 'rb'))
-        rrrs = pickle.load(open(home_path + 'risk_region_rate_scaler.pkl', 'rb'))
-        rcs = pickle.load(open(home_path + 'region_code_scaler.pkl', 'rb'))
-        
-        # Rescaling
-        df['annual_premium'] = aps.transform(df[['annual_premium']].values)
-        df['age'] = age.transform(df[['age']].values)
-        df['vintage'] = vs.transform(df[['vintage']].values)
-        df['policy_sales_channel'] = pscs.transform(df[['policy_sales_channel']].values)
-        df['risk_region_rate'] = rrrs.transform(df[['risk_region_rate']].values)
-        df['region_code'] = rcs.transform(df[['region_code']].values)
-        
+        df = pipeline.data_rescale(df)
         df = pipeline.data_encoding(df)
         df_response = pipeline.get_prediction(model, test_raw, df)
         
